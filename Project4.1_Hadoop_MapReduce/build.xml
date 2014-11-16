@@ -26,15 +26,15 @@
 	</target>
 
 	<target name="build" depends="compile">
-		<jar destfile="mapreduce.jar" basedir="bin/classes">
+		<jar destfile="indexer.jar" basedir="bin/classes">
 			<manifest>
-				<attribute name="Main-class" value="InvertedIndex" />
+				<attribute name="Main-class" value="Indexer" />
 				<attribute name="Class-Path" value="${manifest.classpath}" />
 			</manifest>
 		</jar>
 		<jar destfile="bonus.jar" basedir="bin/classes">
 			<manifest>
-				<attribute name="Main-class" value="InvertedIndexBonus" />
+				<attribute name="Main-class" value="Bonus" />
 				<attribute name="Class-Path" value="${manifest.classpath}" />
 			</manifest>
 		</jar>
