@@ -32,6 +32,12 @@
 				<attribute name="Class-Path" value="${manifest.classpath}" />
 			</manifest>
 		</jar>
+		<jar destfile="bonus.jar" basedir="bin/classes">
+			<manifest>
+				<attribute name="Main-class" value="InvertedIndexBonus" />
+				<attribute name="Class-Path" value="${manifest.classpath}" />
+			</manifest>
+		</jar>
 	</target>
 
 	<target name="clean">
