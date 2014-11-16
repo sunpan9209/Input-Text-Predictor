@@ -9,14 +9,14 @@ import org.apache.hadoop.mapred.*;
 import org.apache.hadoop.util.*;
 //This version uses stop words list
 public class InvertedIndexBonus {
-	private static String stopWordsFile = "/home/hadoop/english.stop";
+	private static String stopWordsFile = "../stopword.txt";
 	public static void main(String[] args) throws IOException{
 		if (args.length != 2) {
 			System.out.println("usage: [input] [output]");
 			System.exit(-1);
 		}
 		JobConf conf = new JobConf(InvertedIndex.class);
-		conf.setJobName("invertedIndex");
+		conf.setJobName("invertedIndexBonus");
 		conf.setOutputKeyClass(Text.class);
 		conf.setOutputValueClass(Text.class);
 		conf.setMapperClass(Map.class);
