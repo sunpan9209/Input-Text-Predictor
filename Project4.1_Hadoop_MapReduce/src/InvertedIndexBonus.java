@@ -9,7 +9,7 @@ import org.apache.hadoop.mapred.*;
 import org.apache.hadoop.util.*;
 //This version uses stop words list
 public class InvertedIndexBonus {
-	private static String stopWordsFile = "../stopword.txt";
+	private static String stopWordsFile = "stopword.txt";
 	public static void main(String[] args) throws IOException{
 		if (args.length != 2) {
 			System.out.println("usage: [input] [output]");
