@@ -84,7 +84,6 @@ public class Indexer {
 		conf.setOutputFormat(TextOutputFormat.class);
 		FileInputFormat.setInputPaths(conf, new Path(args[0]));
 		FileOutputFormat.setOutputPath(conf, new Path(args[1]));
-		// conf.setNumMapTasks(8);
 		try {
 			JobClient.runJob(conf);
 		} catch (Exception e) {
