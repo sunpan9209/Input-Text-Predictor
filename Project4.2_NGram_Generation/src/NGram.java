@@ -28,10 +28,13 @@ public class NGram {
 		public void map(LongWritable key, Text value,
 				OutputCollector<Text, LongWritable> output, Reporter reporter)
 				throws IOException {
-			line = value.toString().replaceAll("[^a-zA-Z]", " ")
+			line = value.toString();
+			if (line.length() == 0)
+				return;
+			line = line.trim().replaceAll("[^a-zA-Z]", " ")
 					.replaceAll("\\s+", " ").toLowerCase();
 			if (line != "") {
-				tokens = line.split(" ");
+				tokens = line.trim().split(" ");
 				for (int i = 0; i < tokens.length; i++) {
 					StringBuilder sb = new StringBuilder();
 					for (int offset = 0; offset < 5; offset++) {
