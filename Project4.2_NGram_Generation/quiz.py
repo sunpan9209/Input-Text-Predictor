@@ -11,9 +11,10 @@ for i in os.listdir(dir):
     file = os.path.join(dir, i)
     fin = open(file, 'r')
     for line in fin:
-      linecount += 1
       data = line.split('\t')
-      if (data[0] == 'early in the morning'):
-          print line
+      if ((data[0]!='')and(data[0]!=' ')):
+                linecount += 1;
+                if (data[0] == 'once in a lifetime'):
+                        print line
 print 'Total lines:', linecount
 
