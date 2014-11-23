@@ -1,0 +1,46 @@
+<?xml version="1.0"?>
+<project name="Project4.1_Hadoop_MapReduce" default="build">
+	<path id="build.classpath">
+		<fileset dir="lib">
+			<include name="**/*.jar" />
+		</fileset>
+	</path>
+
+
+
+	<pathconvert property="manifest.classpath" pathsep=" ">
+		<path refid="build.classpath" />
+		<mapper>
+			<chainedmapper>
+				<flattenmapper />
+				<globmapper from="*.jar" to="lib/*.jar" />
+			</chainedmapper>
+		</mapper>
+	</pathconvert>
+
+	<target name="compile">
+		<mkdir dir="bin/classes" />
+		<javac srcdir="src" destdir="bin/classes">
+			<classpath refid="build.classpath" />
+		</javac>
+	</target>
+
+	<target name="build" depends="compile">
+		<jar destfile="indexer.jar" basedir="bin/classes">
+			<manifest>
+				<attribute name="Main-class" value="Indexer" />
+				<attribute name="Class-Path" value="${manifest.classpath}" />
+			</manifest>
+		</jar>
+		<jar destfile="bonus.jar" basedir="bin/classes">
+			<manifest>
+				<attribute name="Main-class" value="Bonus" />
+				<attribute name="Class-Path" value="${manifest.classpath}" />
+			</manifest>
+		</jar>
+	</target>
+
+	<target name="clean">
+		<delete dir="bin" />
+	</target>
+</project>
