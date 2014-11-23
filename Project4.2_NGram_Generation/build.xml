@@ -1,5 +1,5 @@
 <?xml version="1.0"?>
-<project name="Project4.1_Hadoop_MapReduce" default="build">
+<project name="Project4.2_NGram_Generation" default="build">
 	<path id="build.classpath">
 		<fileset dir="lib">
 			<include name="**/*.jar" />
@@ -26,15 +26,9 @@
 	</target>
 
 	<target name="build" depends="compile">
-		<jar destfile="indexer.jar" basedir="bin/classes">
+		<jar destfile="ngram.jar" basedir="bin/classes">
 			<manifest>
-				<attribute name="Main-class" value="Indexer" />
-				<attribute name="Class-Path" value="${manifest.classpath}" />
-			</manifest>
-		</jar>
-		<jar destfile="bonus.jar" basedir="bin/classes">
-			<manifest>
-				<attribute name="Main-class" value="Bonus" />
+				<attribute name="Main-class" value="NGram" />
 				<attribute name="Class-Path" value="${manifest.classpath}" />
 			</manifest>
 		</jar>
