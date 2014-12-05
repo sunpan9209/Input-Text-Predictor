@@ -32,7 +32,8 @@ public class LanguageModel {
 		@Override
 		public void map(LongWritable key, Text value, Context context)
 				throws IOException, InterruptedException {
-			int t = Integer.parseInt(context.getConfiguration().get("t"));
+			//int t = Integer.parseInt(context.getConfiguration().get("t"));
+			int t = 2;
 			tokens = value.toString().trim().split("\t");
 			long times = Long.valueOf(tokens[1]);
 			if ((tokens.length > 1) && (times > t)) {
@@ -58,7 +59,8 @@ public class LanguageModel {
 			int i = 0;
 			String wordsRank = "";
 			int size;
-			int n = Integer.parseInt(context.getConfiguration().get("n"));
+			//int n = Integer.parseInt(context.getConfiguration().get("n"));
+			int n = 5;
 			Map<String, Long> mapForSort = new HashMap<String, Long>();
 			for (Text value : values) {
 				tokens = value.toString().split("[*]");
