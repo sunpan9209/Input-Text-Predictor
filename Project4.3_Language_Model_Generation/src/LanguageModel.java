@@ -110,10 +110,10 @@ public class LanguageModel {
 		job.setMapOutputValueClass(Text.class);
 		//job.setNumReduceTasks(10);
 		TableMapReduceUtil.initTableReducerJob("model", ReduceTask.class, job);
-		FileInputFormat.addInputPath(job, new Path(leftArgs[0]));
-		FileOutputFormat.setOutputPath(job, new Path(leftArgs[1]));
-		conf.set("n", leftArgs[2]);
-		conf.set("t", leftArgs[3]);
+		FileInputFormat.addInputPath(job, new Path(args[0]));
+		FileOutputFormat.setOutputPath(job, new Path(args[1]));
+	//	conf.set("n", leftArgs[2]);
+	//	conf.set("t", leftArgs[3]);
 		job.waitForCompletion(true);
 	}
 }
