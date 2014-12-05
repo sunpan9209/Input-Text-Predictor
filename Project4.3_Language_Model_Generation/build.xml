@@ -33,6 +33,14 @@
 			</manifest>
 		</jar>
 	</target>
+	<target name="build" depends="compile">
+		<jar destfile="generator.jar" basedir="bin/classes">
+			<manifest>
+				<attribute name="Main-class" value="Generator" />
+				<attribute name="Class-Path" value="${manifest.classpath}" />
+			</manifest>
+		</jar>
+	</target>
 
 	<target name="clean">
 		<delete dir="bin" />
