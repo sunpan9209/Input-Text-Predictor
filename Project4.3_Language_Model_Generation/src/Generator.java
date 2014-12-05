@@ -78,7 +78,7 @@ public class Generator {
 		public void configure(JobConf job) {
 			n = Integer.valueOf(job.get("n"));
 			try{
-				table = new HTable(conf, "languagemodel");
+				table = new HTable(conf, "model");
 			}catch(IOException e){
 				System.err.println(e);
 			}
@@ -148,14 +148,14 @@ public class Generator {
 				if(topn.peek() == null)
 					break;
 				wc = topn.poll();
-				words  = wc.word + "," + words;
+				words  = wc.word + " " + words;
 			}
 			if(words.length() > 0){
-				words =	words.substring(0,words.lastIndexOf((",")));
+				words =	words.substring(0,words.lastIndexOf((" ")));
 				//Insert the key as row key and comma separated list of words (in sorted order)
 				try{
 					put = new Put(Bytes.toBytes(key.toString()));
-					put.add(Bytes.toBytes("f"), Bytes.toBytes(""), Bytes.toBytes(words));
+					put.add(Bytes.toBytes("f"), Bytes.toBytes("q"), Bytes.toBytes(words));
 					table.put(put);
 				}catch(Exception e){
 					System.err.println(e);
