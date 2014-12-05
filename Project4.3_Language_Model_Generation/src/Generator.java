@@ -178,8 +178,8 @@ public class Generator {
 		jobConf.setJobName("Generator");
 		jobConf.setOutputKeyClass(Text.class);
 		jobConf.setOutputValueClass(Text.class);
-	//	jobConf.setNumMapTasks(20);
-	//	jobConf.setNumReduceTasks(20);
+		jobConf.setNumMapTasks(20);
+		jobConf.setNumReduceTasks(20);
 		jobConf.setMapperClass(Map.class);
 		jobConf.setReducerClass(Reduce.class);
 
