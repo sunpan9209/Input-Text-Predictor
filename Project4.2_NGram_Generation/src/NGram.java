@@ -43,8 +43,11 @@ public class NGram {
 								sb.append(" ");
 							}
 							sb.append(tokens[i + offset]);
-							gram.set(sb.toString());
-							output.collect(gram, count);
+							String str = sb.toString();
+							if ((str != "") && (str != " ")) {
+								gram.set(str);
+								output.collect(gram, count);
+							}
 						}
 					}
 				}
@@ -70,7 +73,10 @@ public class NGram {
 				sum += values.next().get();
 			}
 			total.set(sum);
-			output.collect(key, total);
+			String str = key.toString();
+			if ((str != "") && (str != " ")) {
+				output.collect(key, total);
+			}
 		}
 	}
 

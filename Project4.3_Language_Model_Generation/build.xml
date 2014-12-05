@@ -26,9 +26,9 @@
 	</target>
 
 	<target name="build" depends="compile">
-		<jar destfile="generator.jar" basedir="bin/classes">
+		<jar destfile="model.jar" basedir="bin/classes">
 			<manifest>
-				<attribute name="Main-class" value="Generator" />
+				<attribute name="Main-class" value="LanguageModel" />
 				<attribute name="Class-Path" value="${manifest.classpath}" />
 			</manifest>
 		</jar>
