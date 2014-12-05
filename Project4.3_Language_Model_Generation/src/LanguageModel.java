@@ -35,16 +35,18 @@ public class LanguageModel {
 			//int t = Integer.parseInt(context.getConfiguration().get("t"));
 			int t = 2;
 			tokens = value.toString().trim().split("\t");
-			long times = Long.valueOf(tokens[1]);
-			if ((tokens.length > 1) && (times > t)) {
-				String phrase = tokens[0];
-				String[] words = phrase.split(" ");
-				if (words.length <= 1) {
-					return;
+			if (tokens.length > 1) {
+				long times = Long.valueOf(tokens[1]);
+				if (times > t) {
+					String phrase = tokens[0];
+					String[] words = phrase.split(" ");
+					if (words.length <= 1) {
+						return;
+					}
+					outputKey.set(phrase.substring(0, phrase.lastIndexOf(" ")));
+					outputValue.set(words[words.length - 1] + "*" + tokens[1]);
+					context.write(outputKey, outputValue);
 				}
-				outputKey.set(phrase.substring(0, phrase.lastIndexOf(" ")));
-				outputValue.set(words[words.length - 1] + "*" + tokens[1]);
-				context.write(outputKey, outputValue);
 			}
 		}
 	}
