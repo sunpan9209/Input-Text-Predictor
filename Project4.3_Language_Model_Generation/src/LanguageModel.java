@@ -106,7 +106,7 @@ public class LanguageModel {
 		job.setReducerClass(ReduceTask.class);
 		job.setMapOutputKeyClass(Text.class);
 		job.setMapOutputValueClass(Text.class);
-		job.setNumReduceTasks(10);
+		//job.setNumReduceTasks(10);
 		TableMapReduceUtil.initTableReducerJob("model", ReduceTask.class, job);
 		FileInputFormat.addInputPath(job, new Path(leftArgs[0]));
 		FileOutputFormat.setOutputPath(job, new Path(leftArgs[1]));
