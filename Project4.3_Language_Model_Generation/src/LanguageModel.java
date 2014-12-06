@@ -32,7 +32,7 @@ public class LanguageModel {
 		@Override
 		public void map(LongWritable key, Text value, Context context)
 				throws IOException, InterruptedException {
-			//int t = Integer.parseInt(context.getConfiguration().get("t"));
+			// int t = Integer.parseInt(context.getConfiguration().get("t"));
 			int t = 2;
 			tokens = value.toString().trim().split("\t");
 			if (tokens.length > 1) {
@@ -61,7 +61,7 @@ public class LanguageModel {
 			int i = 0;
 			String wordsRank = "";
 			int size;
-			//int n = Integer.parseInt(context.getConfiguration().get("n"));
+			// int n = Integer.parseInt(context.getConfiguration().get("n"));
 			int n = 5;
 			Map<String, Long> mapForSort = new HashMap<String, Long>();
 			for (Text value : values) {
@@ -79,20 +79,23 @@ public class LanguageModel {
 						}
 					});
 			size = (listForSort.size() > n) ? n : listForSort.size();
+			Put put = new Put(Bytes.toBytes(key.toString()));
 			while (i < size) {
-				wordsRank = listForSort.get(i).getKey() + "," + wordsRank;
+				put.add(Bytes.toBytes("info"),
+						Bytes.toBytes(listForSort.get(i).getKey()),
+						Bytes.toBytes(listForSort.get(i).getValue()));
+				// wordsRank = listForSort.get(i).getKey() + "," + wordsRank;
+				i++;
 			}
-			if (wordsRank.length() > 0) {
-				wordsRank = wordsRank
-						.substring(0, wordsRank.lastIndexOf((",")));
-				Put put = new Put(Bytes.toBytes(key.toString()));
-				put.add(Bytes.toBytes("f"), Bytes.toBytes("q"),
-						Bytes.toBytes(wordsRank));
-				if (!put.isEmpty()) {
-					context.write(new ImmutableBytesWritable(key.getBytes()),
-							put);
-				}
+			// if (wordsRank.length() > 0) {
+			// wordsRank = wordsRank
+			// .substring(0, wordsRank.lastIndexOf((",")));
+			// put.add(Bytes.toBytes("f"), Bytes.toBytes("q"),
+			// Bytes.toBytes(wordsRank));
+			if (!put.isEmpty()) {
+				context.write(new ImmutableBytesWritable(key.getBytes()), put);
 			}
+			// }
 		}
 	}
 
@@ -100,22 +103,18 @@ public class LanguageModel {
 		Configuration conf = HBaseConfiguration.create();
 		String[] leftArgs = new GenericOptionsParser(conf, args)
 				.getRemainingArgs();
-		if (leftArgs.length != 4) {
-			System.out.println("usage: [input] [output] [n] [threshold]");
-			System.exit(-1);
-		}
-		Job job = new Job(conf, "model");
+		Job job = new Job(conf, "Table");
 		job.setJarByClass(LanguageModel.class);
 		job.setMapperClass(MapTask.class);
 		job.setReducerClass(ReduceTask.class);
 		job.setMapOutputKeyClass(Text.class);
 		job.setMapOutputValueClass(Text.class);
-		//job.setNumReduceTasks(10);
-		TableMapReduceUtil.initTableReducerJob("model", ReduceTask.class, job);
+		// job.setNumReduceTasks(10);
+		TableMapReduceUtil.initTableReducerJob("Table", ReduceTask.class, job);
 		FileInputFormat.addInputPath(job, new Path(args[0]));
 		FileOutputFormat.setOutputPath(job, new Path(args[1]));
-	//	conf.set("n", leftArgs[2]);
-	//	conf.set("t", leftArgs[3]);
+		// conf.set("n", leftArgs[2]);
+		// conf.set("t", leftArgs[3]);
 		job.waitForCompletion(true);
 	}
 }
